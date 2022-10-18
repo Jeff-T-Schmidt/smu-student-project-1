@@ -10,6 +10,7 @@ import java.util.Objects;
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name="console")
 public class Console {
+
     @Id
     @Column(name="console_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -107,4 +108,5 @@ public class Console {
                 ", quantity=" + quantity +
                 '}';
     }
+
 }

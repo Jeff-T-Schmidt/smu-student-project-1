@@ -10,6 +10,7 @@ import java.util.Objects;
 //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 //@Table(name = "game")
 public class Game {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
@@ -128,5 +129,6 @@ public class Game {
                 ", quantity=" + quantity +
                 '}';
     }
+
 }
 
