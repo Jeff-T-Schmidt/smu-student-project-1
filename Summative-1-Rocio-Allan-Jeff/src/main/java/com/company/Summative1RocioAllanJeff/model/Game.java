@@ -6,9 +6,9 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import java.util.Objects;
 
-@Entity
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Table(name = "game")
+//@Entity
+//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+//@Table(name = "game")
 public class Game {
     private int id;
     private String title;
