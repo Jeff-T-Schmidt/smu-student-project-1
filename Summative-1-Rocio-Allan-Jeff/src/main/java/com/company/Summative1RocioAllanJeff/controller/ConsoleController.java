@@ -24,25 +24,11 @@ public class ConsoleController {
     }
 
 //    get console by id
-//Jeff's way --didn't work
     @GetMapping("/{consoleId}")
     @ResponseStatus(HttpStatus.OK)
     public Optional<Console> getConsoleById(@PathVariable Integer consoleId) {
         return consoleRepository.findById(consoleId);
     }
-
-
-//    my way
-//    @GetMapping("/{consoleId}")
-//    @ResponseStatus(HttpStatus.OK)
-//    public Console getConsoleById(@PathVariable Integer consoleId) {
-//    Optional<Console> returnVal = consoleRepository.findById(Integer.valueOf(String.valueOf(consoleId)));
-//    if (returnVal.isPresent()) {
-//        return returnVal.get();
-//    } else {
-//        return null;
-//    }
-//}
 
     //    get all consoles
     @GetMapping
@@ -61,5 +47,13 @@ public class ConsoleController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteConsole(@PathVariable Integer id) {
         consoleRepository.deleteById(id);
+    }
+
+
+//    find by Manufacturer
+    @GetMapping("/manufacturer/{manufacturer}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Console> findByManufacturer(@PathVariable String manufacturer) {
+        return consoleRepository.findByManufacturer(manufacturer);
     }
 }
