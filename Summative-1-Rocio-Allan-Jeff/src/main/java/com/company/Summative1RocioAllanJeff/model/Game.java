@@ -2,28 +2,57 @@ package com.company.Summative1RocioAllanJeff.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "game")
 public class Game {
-    private int id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @NotNull
+    @Column(name = "game_id")
+    private Integer gameId;
+    @NotNull
+    @Column(name = "title")
     private String title;
+    @NotNull
+    @Column(name = "esrb_rating")
     private String esrb;
+    @NotNull
+    @Column(name = "description")
     private String description;
+    @NotNull
+    @Column(name = "price")
     private float price;
+    @NotNull
+    @Column(name = "studio")
     private String studio;
+    @NotNull
+    @Column(name = "quantity")
     private int quantity;
 
-    public int getId() {
-        return id;
+    public Game() {
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public Game(Integer gameId, String title, String esrb, String description, float price, String studio, int quantity) {
+        this.gameId = gameId;
+        this.title = title;
+        this.esrb = esrb;
+        this.description = description;
+        this.price = price;
+        this.studio = studio;
+        this.quantity = quantity;
+    }
+
+    public Integer getGameId() {
+        return gameId;
+    }
+
+    public void setGameId(Integer gameId) {
+        this.gameId = gameId;
     }
 
     public String getTitle() {
@@ -79,18 +108,18 @@ public class Game {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Game game = (Game) o;
-        return id == game.id && Float.compare(game.price, price) == 0 && quantity == game.quantity && Objects.equals(title, game.title) && Objects.equals(esrb, game.esrb) && Objects.equals(description, game.description) && Objects.equals(studio, game.studio);
+        return gameId == game.gameId && Float.compare(game.price, price) == 0 && quantity == game.quantity && Objects.equals(title, game.title) && Objects.equals(esrb, game.esrb) && Objects.equals(description, game.description) && Objects.equals(studio, game.studio);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, title, esrb, description, price, studio, quantity);
+        return Objects.hash(gameId, title, esrb, description, price, studio, quantity);
     }
 
     @Override
     public String toString() {
         return "Game{" +
-                "id=" + id +
+                "gameId=" + gameId +
                 ", title='" + title + '\'' +
                 ", esrb='" + esrb + '\'' +
                 ", description='" + description + '\'' +
