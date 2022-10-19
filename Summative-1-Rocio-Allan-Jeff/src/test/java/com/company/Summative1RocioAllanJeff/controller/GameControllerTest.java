@@ -14,24 +14,28 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.List;
 
 import static org.junit.Assert.*;
-@RunWith(SpringRunner.class)
-@WebMvcTest(GameControllerTest.class)
-public class GameControllerTest {
-    @Autowired
-    MockMvc mockMvc;
-    @MockBean
-    GameRepository gameRepo;
-    private ObjectMapper mapper = new ObjectMapper();
-
-    Game inputGame;
-    Game outputGame;
-
-    List<Game> gameList;
-    List<Game> gameListbyEsrb
-
-    @Before
-    public void setUp() throws Exception {
-
-    }
-
-}
+//@RunWith(SpringRunner.class)
+//@WebMvcTest(GameControllerTest.class)
+//public class GameControllerTest {
+//    @Autowired
+//    MockMvc mockMvc;
+//    @MockBean
+//    GameRepository gameRepo;
+//
+//    private ObjectMapper mapper = new ObjectMapper();
+//
+//    Game inputGame;
+//    Game outputGame;
+//
+//    List<Game> gameList;
+//    List<Game> gameListbyEsrb;
+//    List<Game> gameListbyStudio;
+//    List<Game> gameByTitle;
+//
+//    @Before
+//    public void setUp() throws Exception {
+//    inputGame = new Game(12, "Hell Let Loose", "Mature 17+", "FPS", 41.00, "Team17", 10);
+//    outputGame = new Game(12, "Hell Let Loose", "Mature 17+", "FPS", 41.00, "Team17", 10);
+//    }
+//
+//}
