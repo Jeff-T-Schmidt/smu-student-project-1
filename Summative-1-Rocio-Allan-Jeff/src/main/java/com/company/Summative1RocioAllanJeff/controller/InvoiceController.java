@@ -1,6 +1,7 @@
 package com.company.Summative1RocioAllanJeff.controller;
 
 
+import com.company.Summative1RocioAllanJeff.model.Game;
 import com.company.Summative1RocioAllanJeff.model.Invoice;
 import com.company.Summative1RocioAllanJeff.model.ProcessingFee;
 import com.company.Summative1RocioAllanJeff.model.TaxRate;
@@ -9,14 +10,12 @@ import com.company.Summative1RocioAllanJeff.repository.ProcessingFeesRepository;
 import com.company.Summative1RocioAllanJeff.repository.TaxRatesRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 public class InvoiceController {
@@ -82,16 +81,20 @@ public class InvoiceController {
             new ProcessingFee("T-Shirts", 1.98f),
             new ProcessingFee("Games", 1.49f)
     ));
-    @PostMapping("/invoices")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Invoice createInvoice(@RequestBody Invoice invoice) {
-        //creates Invoice via the service layer
-        return serviceLayer.save(invoice);
-    }
 //    @PostMapping("/invoices")
 //    @ResponseStatus(HttpStatus.CREATED)
 //    public Invoice createInvoice(@RequestBody Invoice invoice) {
 //        //creates Invoice via the service layer
 //        return serviceLayer.save(invoice);
 //    }
+    @RequestMapping(value = "/invoices", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public List<Invoice> getAllInvoices() {
+        return invoiceRepo.findAll();
+    }
+    @GetMapping("/invoices/{invoiceId}")
+    @ResponseStatus(HttpStatus.OK)
+    public Optional<Invoice> getInvoiceById(@PathVariable Integer invoiceId) {
+        return invoiceRepo.findById(invoiceId);
+    }
 }
