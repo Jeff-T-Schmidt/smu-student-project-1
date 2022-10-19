@@ -37,21 +37,25 @@ public class GameController {
     @GetMapping("/games/studio/{studio}")
     @ResponseStatus(HttpStatus.OK)
     public List<Game> getGamesByStudio(@PathVariable String studio) {
+
         return gameRepo.findAllGamesByStudio(studio);
     }
-    @GetMapping("/games/title/{title}")
+    @GetMapping("/games/{title}")
     @ResponseStatus(HttpStatus.OK)
     public List<Game> getGameByTitle(@PathVariable String title) {
+
         return gameRepo.findAllGamesByTitle(title);
     }
     @PutMapping("/games/{gameId}")
     @ResponseStatus(HttpStatus.OK)
     public void updateGame(@PathVariable Integer gameId,@RequestBody @Valid Game game) {
+
         gameRepo.save(game);
     }
     @DeleteMapping("/games/{gameId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteGame(@PathVariable Integer gameId) {
+
         gameRepo.deleteById(gameId);
     }
 
