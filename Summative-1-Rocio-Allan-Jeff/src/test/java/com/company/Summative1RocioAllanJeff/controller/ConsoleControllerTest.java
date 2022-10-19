@@ -12,9 +12,14 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.doReturn;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -33,21 +38,20 @@ public class ConsoleControllerTest {
     Console inputConsole;
     Console outputConsole;
 
+    List<Console> consoleList;
+
     @Before
      public void setUp() throws Exception {
         //        input - setting arguments
          inputConsole = new Console("xbox","Sony","64gb","idk",199.99f,1);
 
         //        output + id to mimic postman
-//        Console outputConsole = new Console(1,"xbox","Sony","64gb","idk",199.99f,1);
-
         outputConsole = new Console("xbox","Sony","64gb","idk",199.99f,1);
         outputConsole.setConsoleId(1);
         doReturn(outputConsole).when(repository).save(inputConsole);
     }
 
-//    All Present: Create, Read, Read All, Update, Delete, By Manufacturer
-
+    // Create/POST a console
     @Test
     public void shouldCreateNewConsoleOnPostRequest() throws Exception {
 
@@ -64,5 +68,31 @@ public class ConsoleControllerTest {
                 .andExpect(content().json(outputConsoleJson));
     }
 
+    // Read/GET ALL consoles
+
+//    TODO: not sure if it is 100% correct
+    @Test
+    public void shouldGetAllConsolesOnGetRequest() throws Exception {
+        List<Console> outputConsole = new ArrayList<>();
+        String outputConsoleJson = mapper.writeValueAsString(outputConsole);
+
+        doReturn(outputConsole).
+                when // conditional
+                (repository).findAll(); //method we want to test
+
+        ResultActions result = mockMvc.perform(
+                        get("/consoles"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect((content().json(outputConsoleJson)));
+
+    }
+
+
+//    TODO: Read/GET 1 console
+
+//    TODO: Update/PUT a console
+//    TODO: Delete a console
+//    TODO: Find by Manufacturer
 
 }
