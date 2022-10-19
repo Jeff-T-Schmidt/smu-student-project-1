@@ -16,7 +16,7 @@ public class GameController {
     private GameRepository gameRepo;
     @RequestMapping(value = "/games", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public List<Game> getAllGame() {
+    public List<Game> getAllGames() {
         return gameRepo.findAll();
     }
     @PostMapping("/games")
@@ -32,16 +32,15 @@ public class GameController {
     @GetMapping("/games/esrbs/{esrb}")
     @ResponseStatus(HttpStatus.OK)
     public List<Game> getGamesByEsrbRating(@PathVariable String esrb) {
-
         return gameRepo.findAllGamesByEsrb(esrb);
     }
-    @GetMapping("/games/studio/{studio}")
+    @GetMapping("/games/studios/{studio}")
     @ResponseStatus(HttpStatus.OK)
     public List<Game> getGamesByStudio(@PathVariable String studio) {
 
         return gameRepo.findAllGamesByStudio(studio);
     }
-    @GetMapping("/games/title/{title}")
+    @GetMapping("/games/titles/{title}")
     @ResponseStatus(HttpStatus.OK)
     public List<Game> getGameByTitle(@PathVariable String title) {
 
@@ -50,11 +49,13 @@ public class GameController {
     @PutMapping("/games/{gameId}")
     @ResponseStatus(HttpStatus.OK)
     public void updateGame(@PathVariable Integer gameId,@RequestBody @Valid Game game) {
+
         gameRepo.save(game);
     }
     @DeleteMapping("/games/{gameId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteGame(@PathVariable Integer gameId) {
+
         gameRepo.deleteById(gameId);
     }
 
