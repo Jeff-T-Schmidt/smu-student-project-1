@@ -1,17 +1,17 @@
 package com.company.Summative1RocioAllanJeff.model;
 
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
-
+@Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@Table(name = "invoice")
 public class Invoice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     @Column(name = "invoice_id")
     private Integer invoiceId;
     @NotNull

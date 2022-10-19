@@ -82,12 +82,12 @@ public class InvoiceController {
             new ProcessingFee("T-Shirts", 1.98f),
             new ProcessingFee("Games", 1.49f)
     ));
-    @PostMapping("/invoices")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Invoice createInvoice(@RequestBody Invoice invoice) {
-        //creates Invoice via the service layer
-        return serviceLayer.save(invoice);
-    }
+//    @PostMapping("/invoices")
+//    @ResponseStatus(HttpStatus.CREATED)
+//    public Invoice createInvoice(@RequestBody Invoice invoice) {
+//        //creates Invoice via the service layer
+//        return serviceLayer.generate(invoice);
+//    }
 //    @PostMapping("/invoices")
 //    @ResponseStatus(HttpStatus.CREATED)
 //    public Invoice createInvoice(@RequestBody Invoice invoice) {
