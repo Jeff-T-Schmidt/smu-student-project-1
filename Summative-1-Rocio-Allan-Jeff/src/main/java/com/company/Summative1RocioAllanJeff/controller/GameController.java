@@ -34,13 +34,13 @@ public class GameController {
     public List<Game> getGamesByEsrbRating(@PathVariable String esrb) {
         return gameRepo.findAllGamesByEsrb(esrb);
     }
-    @GetMapping("/games/studio/{studio}")
+    @GetMapping("/games/studios/{studio}")
     @ResponseStatus(HttpStatus.OK)
     public List<Game> getGamesByStudio(@PathVariable String studio) {
 
         return gameRepo.findAllGamesByStudio(studio);
     }
-    @GetMapping("/games/{title}")
+    @GetMapping("/games/titles/{title}")
     @ResponseStatus(HttpStatus.OK)
     public List<Game> getGameByTitle(@PathVariable String title) {
 

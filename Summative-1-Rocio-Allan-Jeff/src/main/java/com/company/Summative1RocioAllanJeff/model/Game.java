@@ -6,7 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
-//@Entity
+@Entity
 //@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 //@Table(name = "game")
 public class Game {
@@ -17,22 +17,17 @@ public class Game {
     @Column(name = "game_id")
     private Integer gameId;
     @NotNull
-    @Column(name = "title")
     private String title;
     @NotNull
     @Column(name = "esrb_rating")
     private String esrb;
     @NotNull
-    @Column(name = "description")
     private String description;
     @NotNull
-    @Column(name = "price")
     private float price;
     @NotNull
-    @Column(name = "studio")
     private String studio;
     @NotNull
-    @Column(name = "quantity")
     private int quantity;
 
     public Game() {

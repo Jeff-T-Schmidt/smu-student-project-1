@@ -1,13 +1,10 @@
 package com.company.Summative1RocioAllanJeff.model;
 
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
-
+@Entity
 public class Invoice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,16 +12,12 @@ public class Invoice {
     @Column(name = "invoice_id")
     private Integer invoiceId;
     @NotNull
-
     private String name;
     @NotNull
-
     private String street;
     @NotNull
-
     private String city;
     @NotNull
-
     private String state;
     @NotNull
     @Column(name = "zipcode")

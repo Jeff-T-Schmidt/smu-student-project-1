@@ -1,12 +1,12 @@
 package com.company.Summative1RocioAllanJeff.model;
 
-import javax.persistence.Column;
-import java.util.Objects;
 
+import javax.persistence.Entity;
+import java.util.Objects;
+@Entity
 public class TaxRate {
-    @Column(name = "game_id")
+
     private String state;
-    @Column(name = "rate")
     private float rate;
 
     public TaxRate() {
