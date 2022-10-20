@@ -71,41 +71,46 @@ public class ServiceLayer {
                     float unitPrice = actualGame.getPrice();
                     //setting the order unitPrice
                     viewModel.setUnitPrice(unitPrice);
-                } else if (viewModel.getItemType().equals("Console")) {
-                    Optional<Console> returnConsole = consoleRepository.findById(viewModel.getItemId());
-                    if (returnConsole.isPresent()) {
-                        Console actualConsole = returnConsole.get();
-                        if (actualConsole.getQuantity() >= viewModel.getQuantity()) {
-                            int updatedConsoleQuantity = actualConsole.getQuantity() - viewModel.getQuantity();
-                            actualConsole.setQuantity(updatedConsoleQuantity);
-                            consoleRepository.save(actualConsole);
-                            float unitPrice = actualConsole.getPrice();
-                            viewModel.setUnitPrice(unitPrice);
-                        }
-                    }
-                } else if (viewModel.getItemType().equals("Tshirt")) {
-                    Optional<Tshirt> returnTshirt = tshirtRepository.findById(viewModel.getItemId());
-                    if (returnTshirt.isPresent()) {
-                        Tshirt actualTshirt = returnTshirt.get();
-                        if (actualTshirt.getQuantity() >= viewModel.getQuantity()) {
-                            int updatedTshirtQuantity = actualTshirt.getQuantity() - viewModel.getQuantity();
-                            actualTshirt.setQuantity(updatedTshirtQuantity);
-                            tshirtRepository.save(actualTshirt);
-                            float unitPrice = actualTshirt.getPrice();
-                            viewModel.setUnitPrice(unitPrice);
-                        }
-                    }
-                    //return exception
-                } else {
-                    //this can be custom error handling/response
-                    throw new RuntimeException();
                 }
-
             }
-            //set the unit price on the invoice
-
-
+        } else if (viewModel.getItemType().equals("Console")) {
+            Optional<Console> returnConsole = consoleRepository.findById(viewModel.getItemId());
+            if (returnConsole.isPresent()) {
+                Console actualConsole = returnConsole.get();
+                if (actualConsole.getQuantity() >= viewModel.getQuantity()) {
+                    int updatedConsoleQuantity = actualConsole.getQuantity() - viewModel.getQuantity();
+                    actualConsole.setQuantity(updatedConsoleQuantity);
+                    consoleRepository.save(actualConsole);
+                    float unitPrice = actualConsole.getPrice();
+                    viewModel.setUnitPrice(unitPrice);
+                }
+            }
+        } else if (viewModel.getItemType().equals("Tshirt")) {
+            Optional<Tshirt> returnTshirt = tshirtRepository.findById(viewModel.getItemId());
+            if (returnTshirt.isPresent()) {
+                Tshirt actualTshirt = returnTshirt.get();
+                if (actualTshirt.getQuantity() >= viewModel.getQuantity()) {
+                    int updatedTshirtQuantity = actualTshirt.getQuantity() - viewModel.getQuantity();
+                    actualTshirt.setQuantity(updatedTshirtQuantity);
+                    tshirtRepository.save(actualTshirt);
+                    float unitPrice = actualTshirt.getPrice();
+                    viewModel.setUnitPrice(unitPrice);
+                }
+            }
+            //return exception
+        } else {
+            //this can be custom error handling/response
+            throw new RuntimeException("Invalid item type!" + viewModel.getItemType());
         }
+        double subtotal = findSubtotal(viewModel.getUnitPrice(), viewModel.getQuantity());
+        viewModel.setSubtotal(subtotal);
+        double calculatedTax = findTax(viewModel.getState(), viewModel.getSubtotal());
+        viewModel.setTax(calculatedTax);
+        double calculatedProcessingFee = findProcessingFee(viewModel.getQuantity(), viewModel.getItemType());
+        viewModel.setProcessingFee(calculatedProcessingFee);
+        double total = findTotal(subtotal, calculatedTax, calculatedProcessingFee);
+        viewModel.setTotal(total);
+
         //create new constructor based on Invoice model
 
         Invoice returnInvoice = new Invoice();
@@ -118,6 +123,11 @@ public class ServiceLayer {
         returnInvoice.setItemType(viewModel.getItemType());
         returnInvoice.setItemId(viewModel.getItemId());
         returnInvoice.setQuantity(viewModel.getQuantity());
+        returnInvoice.setUnitPrice(viewModel.getUnitPrice());
+        returnInvoice.setSubtotal(viewModel.getSubtotal());
+        returnInvoice.setTax(viewModel.getTax());
+        returnInvoice.setProcessingFee(viewModel.getProcessingFee());
+        returnInvoice.setTotal(viewModel.getTotal());
 
 //        returnInvoice.setInvoiceId(viewModel.getId());
 
@@ -125,6 +135,31 @@ public class ServiceLayer {
         viewModel.setId(returnInvoice.getInvoiceId());
 
         return viewModel;
+    }
+    public double findSubtotal(double unitPrice, double quantity) {
+
+        return unitPrice*quantity;
+
+    }
+    public double findTax(String state, double subtotal){
+        //use repo to look up tax rate
+        //taxRepo.findById(state);
+        //set a variable to taxRate.getRate()
+        Optional<TaxRate> taxRateOptional = taxRepo.findById(state);
+        //return that variable * subtotal
+        if (taxRateOptional.isPresent()){
+            TaxRate actualTaxRate = taxRateOptional.get();
+            float rate = actualTaxRate.getRate();
+            return rate * subtotal;
+        }
+
+        throw new RuntimeException("No tax rate for provided state!");
+    }
+    public double findProcessingFee(int quantity, String itemType){
+        return 3;
+    }
+    public double findTotal(double subtotal, double tax, double processingFee){
+        return subtotal + tax + processingFee;
     }
 
     //cost of items = invoiceInput.subtotal
