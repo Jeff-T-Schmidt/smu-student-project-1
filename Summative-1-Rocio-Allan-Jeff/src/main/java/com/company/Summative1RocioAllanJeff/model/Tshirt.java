@@ -8,7 +8,7 @@ import javax.validation.constraints.Size;
 import java.util.Objects;
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Table(name = "tshirt")
+@Table(name = "t_shirt")
 public class Tshirt {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
