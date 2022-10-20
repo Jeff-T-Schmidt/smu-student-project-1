@@ -2,9 +2,11 @@ package com.company.Summative1RocioAllanJeff.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.util.Objects;
 @Entity
 public class ProcessingFee {
+    @Id
     @Column(name = "product_type")
     private String productType;
     private float fee;
