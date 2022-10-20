@@ -7,8 +7,7 @@ import java.util.Objects;
 @Entity
 public class TaxRate {
     @Id
-    @Column(name = "game_id")
-    private String state;
+     private String state;
     @Column(name = "rate")
     private float rate;
 
