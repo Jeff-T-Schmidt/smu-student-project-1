@@ -4,6 +4,7 @@ package com.company.Summative1RocioAllanJeff.model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.Objects;
+
 @Entity
 public class Invoice {
     @Id
@@ -13,29 +14,48 @@ public class Invoice {
     private Integer invoiceId;
     @NotNull
     private String name;
+
     @NotNull
     private String street;
+
     @NotNull
     private String city;
+
     @NotNull
     private String state;
+
     @NotNull
     @Column(name = "zipcode")
     private String zipCode;
+
     @NotNull
     @Column(name = "item_type")
     private String itemType;
+
     @NotNull
     @Column(name = "item_id")
     private int itemId;
+
+    @Column(name = "unit_price")
+    private float price;
+
     @NotNull
-    @Column(name = "quantity")
     private int quantity;
+
+    private float subtotal;
+
+    @Column(name = "tax")
+    private float rate;
+
+    @Column(name = "processing_fee")
+    private float fee;
+
+    private float total;
 
     public Invoice() {
     }
 
-    public Invoice(Integer invoiceId, String name, String street, String city, String state, String zipCode, String itemType, int itemId, int quantity) {
+    public Invoice(Integer invoiceId, String name, String street, String city, String state, String zipCode, String itemType, int itemId, float price, int quantity, float subtotal, float rate, float fee, float total) {
         this.invoiceId = invoiceId;
         this.name = name;
         this.street = street;
@@ -44,7 +64,12 @@ public class Invoice {
         this.zipCode = zipCode;
         this.itemType = itemType;
         this.itemId = itemId;
+        this.price = price;
         this.quantity = quantity;
+        this.subtotal = subtotal;
+        this.rate = rate;
+        this.fee = fee;
+        this.total = total;
     }
 
     public Integer getInvoiceId() {
@@ -111,6 +136,14 @@ public class Invoice {
         this.itemId = itemId;
     }
 
+    public float getPrice() {
+        return price;
+    }
+
+    public void setPrice(float price) {
+        this.price = price;
+    }
+
     public int getQuantity() {
         return quantity;
     }
@@ -119,17 +152,49 @@ public class Invoice {
         this.quantity = quantity;
     }
 
+    public float getSubtotal() {
+        return subtotal;
+    }
+
+    public void setSubtotal(float subtotal) {
+        this.subtotal = subtotal;
+    }
+
+    public float getRate() {
+        return rate;
+    }
+
+    public void setRate(float rate) {
+        this.rate = rate;
+    }
+
+    public float getFee() {
+        return fee;
+    }
+
+    public void setFee(float fee) {
+        this.fee = fee;
+    }
+
+    public float getTotal() {
+        return total;
+    }
+
+    public void setTotal(float total) {
+        this.total = total;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Invoice invoice = (Invoice) o;
-        return itemId == invoice.itemId && quantity == invoice.quantity && Objects.equals(invoiceId, invoice.invoiceId) && Objects.equals(name, invoice.name) && Objects.equals(street, invoice.street) && Objects.equals(city, invoice.city) && Objects.equals(state, invoice.state) && Objects.equals(zipCode, invoice.zipCode) && Objects.equals(itemType, invoice.itemType);
+        return itemId == invoice.itemId && Float.compare(invoice.price, price) == 0 && quantity == invoice.quantity && Float.compare(invoice.subtotal, subtotal) == 0 && Float.compare(invoice.rate, rate) == 0 && Float.compare(invoice.fee, fee) == 0 && Float.compare(invoice.total, total) == 0 && Objects.equals(invoiceId, invoice.invoiceId) && Objects.equals(name, invoice.name) && Objects.equals(street, invoice.street) && Objects.equals(city, invoice.city) && Objects.equals(state, invoice.state) && Objects.equals(zipCode, invoice.zipCode) && Objects.equals(itemType, invoice.itemType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(invoiceId, name, street, city, state, zipCode, itemType, itemId, quantity);
+        return Objects.hash(invoiceId, name, street, city, state, zipCode, itemType, itemId, price, quantity, subtotal, rate, fee, total);
     }
 
     @Override
@@ -143,7 +208,12 @@ public class Invoice {
                 ", zipCode='" + zipCode + '\'' +
                 ", itemType='" + itemType + '\'' +
                 ", itemId=" + itemId +
+                ", price=" + price +
                 ", quantity=" + quantity +
+                ", subtotal=" + subtotal +
+                ", rate=" + rate +
+                ", fee=" + fee +
+                ", total=" + total +
                 '}';
     }
 }
