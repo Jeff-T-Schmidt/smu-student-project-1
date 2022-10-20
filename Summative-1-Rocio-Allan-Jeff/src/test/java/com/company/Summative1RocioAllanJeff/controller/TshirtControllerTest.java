@@ -1,6 +1,7 @@
 package com.company.Summative1RocioAllanJeff.controller;
 
 import com.company.Summative1RocioAllanJeff.model.Tshirt;
+import com.company.Summative1RocioAllanJeff.repository.ConsoleRepository;
 import com.company.Summative1RocioAllanJeff.repository.TshirtRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
@@ -25,13 +26,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest
+@WebMvcTest(TshirtController.class)
 public class TshirtControllerTest {
     @Autowired
     MockMvc mockMvc;
 
+
     @MockBean
     TshirtRepository repo;
+
 
     private ObjectMapper mapper = new ObjectMapper();
 

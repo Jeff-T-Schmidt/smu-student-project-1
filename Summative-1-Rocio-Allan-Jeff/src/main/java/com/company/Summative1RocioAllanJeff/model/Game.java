@@ -7,8 +7,9 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Entity
-//@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-//@Table(name = "game")
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+@Table(name = "game")
+
 public class Game {
 
     @Id
