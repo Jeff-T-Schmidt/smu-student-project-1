@@ -1,5 +1,6 @@
 package com.company.Summative1RocioAllanJeff.model;
 
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -8,7 +9,7 @@ import java.util.Objects;
 public class TaxRate {
     @Id
      private String state;
-    @Column(name = "rate")
+
     private float rate;
 
     public TaxRate() {

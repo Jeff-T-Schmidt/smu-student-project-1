@@ -16,16 +16,12 @@ public class Invoice {
     @Column(name = "invoice_id")
     private Integer invoiceId;
     @NotNull
-
     private String name;
     @NotNull
-
     private String street;
     @NotNull
-
     private String city;
     @NotNull
-
     private String state;
     @NotNull
     @Column(name = "zipcode")

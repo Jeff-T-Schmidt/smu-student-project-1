@@ -9,7 +9,6 @@ public class ProcessingFee {
     @Id
     @Column(name = "product_type")
     private String productType;
-    @Column(name = "fee")
     private float fee;
 
     public ProcessingFee() {

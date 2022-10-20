@@ -49,7 +49,6 @@ public class Console {
         this.quantity = quantity;
     }
 
-
     public Integer getConsoleId() {
         return consoleId;
     }
