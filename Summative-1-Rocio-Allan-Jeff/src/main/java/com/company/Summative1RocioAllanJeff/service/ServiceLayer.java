@@ -156,6 +156,7 @@ public class ServiceLayer {
 
         throw new RuntimeException("No tax rate for provided state!");
     }
+
     public double findProcessingFee(int quantity, String productType) {
         // user repo to look up processing fee
         Optional<ProcessingFee> processingFeeByType = feesRepo.findById(productType);
@@ -173,7 +174,8 @@ public class ServiceLayer {
         } else {
             throw new RuntimeException("No fees found for product type!");
         }
-    }
+
+    
     public double findTotal(double subtotal, double tax, double processingFee){
         return subtotal + tax + processingFee;
     }

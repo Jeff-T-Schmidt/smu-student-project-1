@@ -4,8 +4,10 @@ package com.company.Summative1RocioAllanJeff.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Objects;
 @Entity
+@Table(name = "sales_tax_rate")
 public class TaxRate {
     @Id
      private String state;
