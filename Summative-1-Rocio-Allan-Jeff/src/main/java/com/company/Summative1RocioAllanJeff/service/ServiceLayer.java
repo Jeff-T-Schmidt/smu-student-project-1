@@ -136,18 +136,20 @@ public class ServiceLayer {
 
         return viewModel;
     }
+
     public double findSubtotal(double unitPrice, double quantity) {
 
-        return unitPrice*quantity;
+        return unitPrice * quantity;
 
     }
-    public double findTax(String state, double subtotal){
+
+    public double findTax(String state, double subtotal) {
         //use repo to look up tax rate
         //taxRepo.findById(state);
         //set a variable to taxRate.getRate()
         Optional<TaxRate> taxRateOptional = taxRepo.findById(state);
         //return that variable * subtotal
-        if (taxRateOptional.isPresent()){
+        if (taxRateOptional.isPresent()) {
             TaxRate actualTaxRate = taxRateOptional.get();
             float rate = actualTaxRate.getRate();
             return rate * subtotal;
@@ -155,10 +157,27 @@ public class ServiceLayer {
 
         throw new RuntimeException("No tax rate for provided state!");
     }
-    public double findProcessingFee(int quantity, String itemType){
-        return 3;
+
+    public double findProcessingFee(int quantity, String productType) {
+        // user repo to look up processing fee
+        Optional<ProcessingFee> processingFeeByType = feesRepo.findById(productType);
+        if (processingFeeByType.isPresent()) {
+            ProcessingFee actualProcessingFee = processingFeeByType.get();
+            float fee = actualProcessingFee.getFee();
+            double otherFee = 15.49;
+            // if quantity is <= 10, return fee
+            if (quantity <= 10) {
+                return fee;
+            } else {
+                return fee + otherFee;
+            }
+            // else return fee + otherFee;
+        } else {
+            throw new RuntimeException("No fees found for product type!");
+        }
     }
-    public double findTotal(double subtotal, double tax, double processingFee){
+
+    public double findTotal(double subtotal, double tax, double processingFee) {
         return subtotal + tax + processingFee;
     }
 
