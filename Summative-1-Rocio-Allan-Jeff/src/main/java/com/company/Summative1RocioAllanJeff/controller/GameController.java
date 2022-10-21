@@ -46,7 +46,7 @@ public class GameController {
 
         return gameRepo.findAllGamesByTitle(title);
     }
-    @PutMapping("/games/{gameId}")
+    @PutMapping("/games")
     @ResponseStatus(HttpStatus.OK)
     public void updateGame(@PathVariable Integer gameId,@RequestBody @Valid Game game) {
 
