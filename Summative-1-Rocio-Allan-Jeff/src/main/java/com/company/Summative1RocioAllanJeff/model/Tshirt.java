@@ -29,6 +29,13 @@ public class Tshirt {
         this.price = price;
         this.quantity = quantity;
     }
+    public Tshirt(String color, String size, String description, float price, int quantity) {
+        this.color = color;
+        this.size = size;
+        this.description = description;
+        this.price = price;
+        this.quantity = quantity;
+    }
 
     public Integer getT_shirt_id() {
         return t_shirt_id;
