@@ -9,7 +9,9 @@ import com.company.Summative1RocioAllanJeff.repository.InvoiceRepository;
 import com.company.Summative1RocioAllanJeff.repository.ProcessingFeesRepository;
 import com.company.Summative1RocioAllanJeff.repository.TaxRatesRepository;
 import com.company.Summative1RocioAllanJeff.service.ServiceLayer;
+
 import com.company.Summative1RocioAllanJeff.viewmodel.InvoiceViewModel;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 
@@ -31,11 +33,13 @@ public class InvoiceController {
     @Autowired
     private ServiceLayer serviceLayer;
 
+
     @PostMapping("/invoices")
     @ResponseStatus(HttpStatus.CREATED)
     public InvoiceViewModel addInvoice(@RequestBody InvoiceViewModel invoiceViewModel) {
         //creates Invoice via the service layer
         return serviceLayer.saveInvoice(invoiceViewModel);
+
     }
 
 //

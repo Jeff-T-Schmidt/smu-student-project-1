@@ -22,6 +22,7 @@ import static org.junit.Assert.*;
 import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -50,6 +51,13 @@ public class GameControllerTest {
         outputGame = new Game(12, "Speedrunners", "Everyone", "Multiplayer", 32.00f, "tinyBuild", 10);
         outputGame2 = new Game(15, "Next Game", "Mature", "FPS", 15.00f, "Next Studio",10);
         outputGame3 = new Game(31, "Another Game", "Mature", "Build", 12.00f, "Another Studio", 10);
+        allGames.add(outputGame);
+
+        allGames = new ArrayList<>(Arrays.asList(
+                outputGame,
+                outputGame2,
+                outputGame3
+        ));
 
         gamesByEsrb = new ArrayList<>(Arrays.asList(
                 outputGame2,
@@ -76,6 +84,7 @@ public class GameControllerTest {
 
         mockMvc.perform(
                         get("/games"))
+                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().json(outputJson)
                 );
@@ -88,6 +97,7 @@ public class GameControllerTest {
         mockMvc.perform(post("/games")
                         .content(inputJson)
                         .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
                 .andExpect(status().isCreated())
                 .andExpect(content().json(outputJson));
     }
@@ -96,6 +106,7 @@ public class GameControllerTest {
         String outputJson = mapper.writeValueAsString(outputGame);
 
         mockMvc.perform(get("/games/12"))
+                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().json(outputJson));
     }
@@ -104,6 +115,7 @@ public class GameControllerTest {
         String outputJson = mapper.writeValueAsString(gamesByEsrb);
 
         mockMvc.perform(get("/games/esrbs/Mature"))
+                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().json(outputJson));
     }
@@ -112,6 +124,7 @@ public class GameControllerTest {
         String outputJson = mapper.writeValueAsString(gamesByStudio);
 
         mockMvc.perform(get("/games/studios/tinyBuild"))
+                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().json(outputJson));
     }
@@ -120,6 +133,7 @@ public class GameControllerTest {
         String outputJson = mapper.writeValueAsString(gameByTitle);
 
         mockMvc.perform(get("/games/titles/Speedrunners"))
+                .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().json(outputJson));
     }

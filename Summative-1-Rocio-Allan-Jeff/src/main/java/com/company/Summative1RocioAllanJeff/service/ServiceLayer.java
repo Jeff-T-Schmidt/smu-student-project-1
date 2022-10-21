@@ -7,6 +7,7 @@ import com.company.Summative1RocioAllanJeff.viewmodel.InvoiceViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,7 +29,7 @@ public class ServiceLayer {
     public ServiceLayer(InvoiceRepository invoiceRepo, TaxRatesRepository taxRepo, ProcessingFeesRepository feesRepo, ConsoleRepository consoleRepository, GameRepository gameRepository, TshirtRepository tshirtRepository) {
         this.invoiceRepo = invoiceRepo;
         this.taxRepo = taxRepo;
-        this.feesRepo = feesRepo;
+        this.feesRepo  = feesRepo;
         this.consoleRepository = consoleRepository;
         this.gameRepository = gameRepository;
         this.tshirtRepository = tshirtRepository;
@@ -177,7 +178,8 @@ public class ServiceLayer {
         }
     }
 
-    public double findTotal(double subtotal, double tax, double processingFee) {
+    
+    public double findTotal(double subtotal, double tax, double processingFee){
         return subtotal + tax + processingFee;
     }
 
