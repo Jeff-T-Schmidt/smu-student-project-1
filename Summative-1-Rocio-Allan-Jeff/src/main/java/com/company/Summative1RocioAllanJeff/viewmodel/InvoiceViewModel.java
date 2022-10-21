@@ -1,54 +1,32 @@
-package com.company.Summative1RocioAllanJeff.model;
+package com.company.Summative1RocioAllanJeff.viewmodel;
 
-
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import java.io.Serializable;
+import javax.persistence.Column;
 import java.util.Objects;
-@Entity
-@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Table(name = "invoice")
-public class Invoice {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "invoice_id")
-    private Integer invoiceId;
-    @NotNull
+
+public class InvoiceViewModel {
+
+    private int id;
     private String name;
-    @NotNull
     private String street;
-    @NotNull
     private String city;
-    @NotNull
     private String state;
-    @NotNull
     @Column(name = "zipcode")
     private String zipCode;
-    @NotNull
-    @Column(name = "item_type")
     private String itemType;
-    @NotNull
-    @Column(name = "item_id")
     private int itemId;
-    @NotNull
-    @Column(name = "quantity")
     private int quantity;
     @Column(name = "unit_price")
     private double unitPrice;
-
     private double subtotal;
     private double tax;
-    @Column(name="processing_fee")
+    @Column(name = "processing_fee")
     private double processingFee;
     private double total;
 
-    public Invoice() {
-    }
+    public InvoiceViewModel () {}
 
-    public Invoice(Integer invoiceId, String name, String street, String city, String state, String zipCode, String itemType, int itemId, int quantity, double unitPrice, double subtotal, double tax, double processingFee, double total) {
-        this.invoiceId = invoiceId;
+    public InvoiceViewModel(int id, String name, String street, String city, String state, String zipCode, String itemType, int itemId, int quantity, double unitPrice, double subtotal, double tax, double processingFee, double total) {
+        this.id = id;
         this.name = name;
         this.street = street;
         this.city = city;
@@ -64,12 +42,12 @@ public class Invoice {
         this.total = total;
     }
 
-    public Integer getInvoiceId() {
-        return invoiceId;
+    public int getId() {
+        return id;
     }
 
-    public void setInvoiceId(Integer invoiceId) {
-        this.invoiceId = invoiceId;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -180,19 +158,19 @@ public class Invoice {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Invoice invoice = (Invoice) o;
-        return itemId == invoice.itemId && quantity == invoice.quantity && Double.compare(invoice.unitPrice, unitPrice) == 0 && Double.compare(invoice.subtotal, subtotal) == 0 && Double.compare(invoice.tax, tax) == 0 && Double.compare(invoice.processingFee, processingFee) == 0 && Double.compare(invoice.total, total) == 0 && Objects.equals(invoiceId, invoice.invoiceId) && Objects.equals(name, invoice.name) && Objects.equals(street, invoice.street) && Objects.equals(city, invoice.city) && Objects.equals(state, invoice.state) && Objects.equals(zipCode, invoice.zipCode) && Objects.equals(itemType, invoice.itemType);
+        InvoiceViewModel that = (InvoiceViewModel) o;
+        return id == that.id && itemId == that.itemId && quantity == that.quantity && Double.compare(that.unitPrice, unitPrice) == 0 && Double.compare(that.subtotal, subtotal) == 0 && Double.compare(that.tax, tax) == 0 && Double.compare(that.processingFee, processingFee) == 0 && Double.compare(that.total, total) == 0 && Objects.equals(name, that.name) && Objects.equals(street, that.street) && Objects.equals(city, that.city) && Objects.equals(state, that.state) && Objects.equals(zipCode, that.zipCode) && Objects.equals(itemType, that.itemType);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(invoiceId, name, street, city, state, zipCode, itemType, itemId, quantity, unitPrice, subtotal, tax, processingFee, total);
+        return Objects.hash(id, name, street, city, state, zipCode, itemType, itemId, quantity, unitPrice, subtotal, tax, processingFee, total);
     }
 
     @Override
     public String toString() {
-        return "Invoice{" +
-                "invoiceId=" + invoiceId +
+        return "InvoiceViewModel{" +
+                "id=" + id +
                 ", name='" + name + '\'' +
                 ", street='" + street + '\'' +
                 ", city='" + city + '\'' +
