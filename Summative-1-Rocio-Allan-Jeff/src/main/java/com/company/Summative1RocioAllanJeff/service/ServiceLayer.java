@@ -7,6 +7,7 @@ import com.company.Summative1RocioAllanJeff.viewmodel.InvoiceViewModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,7 +29,7 @@ public class ServiceLayer {
     public ServiceLayer(InvoiceRepository invoiceRepo, TaxRatesRepository taxRepo, ProcessingFeesRepository feesRepo, ConsoleRepository consoleRepository, GameRepository gameRepository, TshirtRepository tshirtRepository) {
         this.invoiceRepo = invoiceRepo;
         this.taxRepo = taxRepo;
-        this.feesRepo = feesRepo;
+        this.feesRepo  = feesRepo;
         this.consoleRepository = consoleRepository;
         this.gameRepository = gameRepository;
         this.tshirtRepository = tshirtRepository;
@@ -155,9 +156,26 @@ public class ServiceLayer {
 
         throw new RuntimeException("No tax rate for provided state!");
     }
-    public double findProcessingFee(int quantity, String itemType){
-        return 3;
-    }
+
+    public double findProcessingFee(int quantity, String productType) {
+        // user repo to look up processing fee
+        Optional<ProcessingFee> processingFeeByType = feesRepo.findById(productType);
+        if (processingFeeByType.isPresent()) {
+            ProcessingFee actualProcessingFee = processingFeeByType.get();
+            float fee = actualProcessingFee.getFee();
+            double otherFee = 15.49;
+            // if quantity is <= 10, return fee
+            if (quantity <= 10) {
+                return fee;
+            } else {
+                return fee + otherFee;
+            }
+            // else return fee + otherFee;
+        } else {
+            throw new RuntimeException("No fees found for product type!");
+        }
+
+    
     public double findTotal(double subtotal, double tax, double processingFee){
         return subtotal + tax + processingFee;
     }
