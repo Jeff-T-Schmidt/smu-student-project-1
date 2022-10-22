@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository
 public interface TaxRatesRepository extends JpaRepository<TaxRate, String>{
-    List<TaxRate> getTaxRateByState(String state);
+
 
 }
