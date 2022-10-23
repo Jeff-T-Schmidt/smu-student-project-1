@@ -48,7 +48,7 @@ public class GameController {
     }
     @PutMapping("/games")
     @ResponseStatus(HttpStatus.OK)
-    public void updateGame(@PathVariable Integer gameId,@RequestBody @Valid Game game) {
+    public void updateGame(@RequestBody @Valid Game game) {
 
         gameRepo.save(game);
     }
