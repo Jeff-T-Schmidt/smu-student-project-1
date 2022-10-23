@@ -21,8 +21,8 @@ import java.util.Optional;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.doReturn;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -42,6 +42,7 @@ public class ConsoleControllerTest {
     Console outputConsole2;
     List<Console> allConsoles = new ArrayList<>();
 
+    List<Console> manufacturerSony;
     String allConsolesJson;
 
     @Before
@@ -62,9 +63,14 @@ public class ConsoleControllerTest {
            outputConsole,
            outputConsole2     
         ));
+
+        manufacturerSony = new ArrayList<>(Arrays.asList(
+                outputConsole,
+                outputConsole2
+        ));
     }
 
-    // Create/POST a console
+    //    Create/POST a console
     @Test
     public void shouldCreateNewConsoleOnPostRequest() throws Exception {
 
@@ -83,17 +89,15 @@ public class ConsoleControllerTest {
                 .andExpect(content().json(outputConsoleJson));
     }
 
-    // Read/GET ALL consoles
+    //    Read/GET ALL consoles
     @Test
     public void shouldReturnAllConsolesOnGetRequest() throws Exception {
         String outputJson = mapper.writeValueAsString(allConsoles);
 
-//        doReturn(allConsoles).when(repository).findAll();
         doReturn(allConsoles).
                 when // conditional
                 (repository).findAll(); //method we want to test
 
-//        ResultActions result = mockMvc.perform(
             mockMvc.perform(
                         get("/consoles"))
                 .andDo(print())
@@ -101,22 +105,55 @@ public class ConsoleControllerTest {
                 .andExpect((content().json(outputJson)));
     }
 
-//    TODO: Read/GET 1 console--not working need to fix
+    //    Read/GET 1 console
     public void shouldReturnConsoleById() throws Exception {
-
         String outputJson = mapper.writeValueAsString(outputConsole2);
 
         doReturn(Optional.of(outputConsole2)).when(repository).findById(2);
 
         mockMvc.perform(
-                get("/consoles/2"))
+                        get("/consoles/2"))
                 .andDo(print())
-            .andExpect(status().isOk())
-            .andExpect((content().json(outputJson)));
-}
+                .andExpect(status().isOk())
+                .andExpect((content().json(outputJson)));
+    }
 
-//    TODO: Update/PUT a console
-//    TODO: Delete a console
-//    TODO: Find by Manufacturer
+    //    Update/PUT a console
+    @Test
+    public void shouldUpdateConsoleByIdAndReturn204StatusCode() throws Exception {
+        inputConsole.setConsoleId(1);
+        inputConsole.setProcessor("Jaguar 2.0");
+        String inputJson = mapper.writeValueAsString(inputConsole);
+
+        doReturn(Optional.of(outputConsole)).when(repository).findById(1);
+
+        mockMvc.perform(
+                        put("/consoles")
+//                                .andDo(print()
+                                .content(inputJson)
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNoContent());
+    }
+
+
+    //   Delete a console
+    @Test
+    public void shouldDeleteByIdAndReturn204StatusCode() throws Exception {
+        mockMvc.perform(delete("/consoles/2")).andExpect(status().isNoContent());
+    }
+
+    //   Find by Manufacturer
+    @Test
+    public void shouldReturnConsoleByManufacturer() throws Exception {
+        String outputJson = mapper.writeValueAsString(manufacturerSony);
+
+        doReturn(manufacturerSony).when(repository).findByManufacturer("Sony");
+
+        mockMvc.perform(
+                        get("/consoles/manufacturer/Sony"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect((content().json(outputJson)));
+    }
 
 }
