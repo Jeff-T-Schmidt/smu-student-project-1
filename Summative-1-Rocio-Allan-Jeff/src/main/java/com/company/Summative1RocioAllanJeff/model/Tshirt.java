@@ -3,8 +3,7 @@ package com.company.Summative1RocioAllanJeff.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.Objects;
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -13,10 +12,17 @@ public class Tshirt {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer t_shirt_id;
+    @NotEmpty(message = "Color can't be empty!")
     private String color;
+    @NotEmpty(message = "Size can't be empty!")
     private String size;
+    @NotEmpty(message = "Description can't be empty!")
     private String description;
+    @NotNull
+    @Min(value = 10, message = "You know price is more than $10!")
     private float price;
+    @NotNull
+    @Positive(message = "You need to put a quantity!")
     private int quantity;
 
     public Tshirt() {}

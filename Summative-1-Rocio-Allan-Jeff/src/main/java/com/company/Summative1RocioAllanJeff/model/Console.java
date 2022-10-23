@@ -3,7 +3,10 @@ package com.company.Summative1RocioAllanJeff.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.util.Objects;
 
 @Entity
@@ -15,16 +18,22 @@ public class Console {
     @Column(name="console_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer consoleId;
-    @NotNull
+    @NotEmpty(message = "Model can't be empty!")
     private String model;
-    @NotNull
+    @NotEmpty(message = "Manufacturer can't be empty!")
     private String manufacturer;
     @Column(name="memory_amount")
+    @NotEmpty(message = "Memory amount can't be empty!")
     private String memoryAmount;
+    @NotEmpty(message = "Processor can't be empty!")
     private String processor;
+
     @NotNull
+    @Min(value = 50, message = "You know price is more than $50!")
     private float price;
+
     @NotNull
+    @Positive(message = "You need to put a quantity!")
     private int quantity;
 
     public Console() {
