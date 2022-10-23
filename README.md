@@ -1,4 +1,4 @@
-# Game Store
+# smu-student-project-1
 The API-based database application will manage inventory such as games, console and T-shirts and provide a mechanism by which users can purchase the products.
 
 ### Using the UI
