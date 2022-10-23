@@ -137,4 +137,5 @@ public class GameControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json(outputJson));
     }
+
 }
