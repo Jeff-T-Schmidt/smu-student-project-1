@@ -14,11 +14,11 @@ import static org.junit.Assert.*;
 public class GameRepositoryTest {
     @Autowired
     private GameRepository gameRepository;
-    @Before
-    public void setUp() {
-
-    }
-    @Test
-    Game game = new Game();
-    game.
+//    @Before
+//    public void setUp() {
+//
+//    }
+//    @Test
+//    Game game = new Game();
+//    game.
 }

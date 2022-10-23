@@ -3,7 +3,10 @@ package com.company.Summative1RocioAllanJeff.model;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.util.Objects;
 
 @Entity
@@ -14,21 +17,22 @@ public class Game {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
     @Column(name = "game_id")
     private Integer gameId;
-    @NotNull
+    @NotEmpty(message = "Title can't be empty!")
     private String title;
-    @NotNull
+    @NotEmpty(message = "ESRB Rating can't be empty!")
     @Column(name = "esrb_rating")
     private String esrb;
-    @NotNull
+    @NotEmpty(message = "Description can't be empty!")
     private String description;
     @NotNull
+    @Min(value = 30, message = "You know price is more than $30!")
     private float price;
-    @NotNull
+    @NotEmpty(message = "Studio can't be empty!")
     private String studio;
     @NotNull
+    @Positive(message = "You need to put a quantity!")
     private int quantity;
 
     public Game() {

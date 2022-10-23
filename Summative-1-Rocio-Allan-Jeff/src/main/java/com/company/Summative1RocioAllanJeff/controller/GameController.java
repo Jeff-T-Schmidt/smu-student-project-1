@@ -21,7 +21,7 @@ public class GameController {
     }
     @PostMapping("/games")
     @ResponseStatus(HttpStatus.CREATED)
-    public Game addGame(@RequestBody Game customer) {
+    public Game addGame(@RequestBody @Valid Game customer) {
         return gameRepo.save(customer);
     }
     @GetMapping("/games/{gameId}")
