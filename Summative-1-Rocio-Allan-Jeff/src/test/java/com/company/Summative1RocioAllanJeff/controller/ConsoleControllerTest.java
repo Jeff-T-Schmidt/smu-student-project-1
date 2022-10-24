@@ -106,6 +106,7 @@ public class ConsoleControllerTest {
     }
 
     //    Read/GET 1 console
+    @Test
     public void shouldReturnConsoleById() throws Exception {
         String outputJson = mapper.writeValueAsString(outputConsole2);
 

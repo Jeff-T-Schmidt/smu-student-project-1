@@ -28,8 +28,8 @@ public class GameController {
     @GetMapping("/games/{gameId}")
     @ResponseStatus(HttpStatus.OK)
     public Optional<Game> getGameById(@PathVariable Integer gameId) {
-        if (gameId > gameRepo.count())
-            throw new NotFoundException("Game doesn't exist");
+//        if (gameId > gameRepo.count())
+//            throw new NotFoundException("Game doesn't exist");
         return gameRepo.findById(gameId);
     }
     @GetMapping("/games/esrbs/{esrb}")

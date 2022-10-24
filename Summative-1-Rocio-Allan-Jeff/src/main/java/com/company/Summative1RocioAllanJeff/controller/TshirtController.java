@@ -28,8 +28,8 @@ public class TshirtController {
     @GetMapping("/tshirts/{t_shirt_id}")
     @ResponseStatus(HttpStatus.OK)
     public Optional<Tshirt> getTshirtById(@PathVariable Integer t_shirt_id) {
-        if (t_shirt_id > repo.count())
-            throw new NotFoundException("Tshirt doesn't exist");
+//        if (t_shirt_id > repo.count())
+//            throw new NotFoundException("Tshirt doesn't exist");
         return repo.findById(t_shirt_id);
     }
 
