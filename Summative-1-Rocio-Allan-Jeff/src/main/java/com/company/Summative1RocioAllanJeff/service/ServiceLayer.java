@@ -194,6 +194,82 @@ public class ServiceLayer {
     //"Clean" - create a different method for each business rule
 
 
+    // referenced record-collection activity in class on Oct. 14, 2022
+    //build InvoiceViewModel to create a list of invoices
+    private InvoiceViewModel buildInvoiceViewModel (Invoice invoice) {
+
+        InvoiceViewModel returnVal = new InvoiceViewModel();
+        returnVal.setId(invoice.getInvoiceId());
+        returnVal.setName(invoice.getName());
+        returnVal.setStreet(invoice.getStreet());
+        returnVal.setCity(invoice.getCity());
+        returnVal.setState(invoice.getState());
+        returnVal.setZipCode(invoice.getZipCode());
+        returnVal.setItemType(invoice.getItemType());
+        returnVal.setItemId(invoice.getItemId());
+        returnVal.setQuantity(invoice.getQuantity());
+        returnVal.setUnitPrice(invoice.getUnitPrice());
+        returnVal.setSubtotal(invoice.getSubtotal());
+        returnVal.setTax(invoice.getTax());
+        returnVal.setProcessingFee(invoice.getProcessingFee());
+        returnVal.setTotal(invoice.getTotal());
+
+        return returnVal;
+    }
+    // find all invoices
+    public List<InvoiceViewModel> findAllInvoices() {
+
+        List<Invoice> invoiceList = invoiceRepo.findAll();
+
+        List<InvoiceViewModel> returnValList = new ArrayList<>();
+
+        for (Invoice invoice : invoiceList) {
+            InvoiceViewModel avm = buildInvoiceViewModel(invoice);
+            returnValList.add(avm);
+        }
+
+        return returnValList;
+    }
+    // find an invoice by id
+    public InvoiceViewModel findInvoiceById(int id) {
+
+        // Get the invoice object first
+        Optional<Invoice> invoice = invoiceRepo.findById(id);
+
+        return invoice.isPresent() ? buildInvoiceViewModel(invoice.get()) : null;
+    }
+    // update an invoice
+    @Transactional
+    public void updateInvoice(InvoiceViewModel invoiceViewModel) {
+
+        // Update the album information
+        Invoice invoice = new Invoice();
+        invoice.setInvoiceId(invoiceViewModel.getId());
+        invoice.setName(invoiceViewModel.getName());
+        invoice.setStreet(invoiceViewModel.getStreet());
+        invoice.setCity(invoiceViewModel.getCity());
+        invoice.setState(invoiceViewModel.getState());
+        invoice.setZipCode(invoiceViewModel.getZipCode());
+        invoice.setItemType(invoiceViewModel.getItemType());
+        invoice.setItemId(invoiceViewModel.getItemId());
+        invoice.setQuantity(invoiceViewModel.getQuantity());
+        invoice.setUnitPrice(invoiceViewModel.getUnitPrice());
+        invoice.setSubtotal(invoiceViewModel.getSubtotal());
+        invoice.setTax(invoiceViewModel.getTax());
+        invoice.setProcessingFee(invoiceViewModel.getProcessingFee());
+        invoice.setTotal(invoiceViewModel.getTotal());
+
+        invoiceRepo.save(invoice);
+
+    }
+    //delete an invoice
+    @Transactional
+    public void deleteInvoiceById(int id) {
+
+        // Remove album
+        invoiceRepo.deleteById(id);
+
+    }
 }
 
 
