@@ -5,6 +5,7 @@ import com.company.Summative1RocioAllanJeff.repository.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.webjars.NotFoundException;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -27,6 +28,8 @@ public class GameController {
     @GetMapping("/games/{gameId}")
     @ResponseStatus(HttpStatus.OK)
     public Optional<Game> getGameById(@PathVariable Integer gameId) {
+        if (gameId > gameRepo.count())
+            throw new NotFoundException("Game doesn't exist");
         return gameRepo.findById(gameId);
     }
     @GetMapping("/games/esrbs/{esrb}")

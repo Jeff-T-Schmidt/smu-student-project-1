@@ -5,6 +5,7 @@ import com.company.Summative1RocioAllanJeff.repository.ConsoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.webjars.NotFoundException;
 
 
 import javax.validation.Valid;
@@ -29,6 +30,8 @@ public class ConsoleController {
     @GetMapping("/{consoleId}")
     @ResponseStatus(HttpStatus.OK)
     public Optional<Console> getConsoleById(@PathVariable Integer consoleId) {
+        if (consoleId > consoleRepository.count())
+            throw new NotFoundException("Console doesn't exist");
         return consoleRepository.findById(consoleId);
     }
 

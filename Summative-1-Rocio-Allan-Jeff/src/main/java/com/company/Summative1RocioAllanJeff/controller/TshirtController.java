@@ -5,6 +5,7 @@ import com.company.Summative1RocioAllanJeff.repository.TshirtRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.webjars.NotFoundException;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -27,6 +28,8 @@ public class TshirtController {
     @GetMapping("/tshirts/{t_shirt_id}")
     @ResponseStatus(HttpStatus.OK)
     public Optional<Tshirt> getTshirtById(@PathVariable Integer t_shirt_id) {
+        if (t_shirt_id > repo.count())
+            throw new NotFoundException("Tshirt doesn't exist");
         return repo.findById(t_shirt_id);
     }
 
