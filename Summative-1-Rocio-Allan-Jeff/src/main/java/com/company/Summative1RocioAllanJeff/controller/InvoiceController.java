@@ -1,15 +1,7 @@
 package com.company.Summative1RocioAllanJeff.controller;
 
 
-import com.company.Summative1RocioAllanJeff.model.Game;
-import com.company.Summative1RocioAllanJeff.model.Invoice;
-import com.company.Summative1RocioAllanJeff.model.ProcessingFee;
-import com.company.Summative1RocioAllanJeff.model.TaxRate;
-import com.company.Summative1RocioAllanJeff.repository.InvoiceRepository;
-import com.company.Summative1RocioAllanJeff.repository.ProcessingFeesRepository;
-import com.company.Summative1RocioAllanJeff.repository.TaxRatesRepository;
 import com.company.Summative1RocioAllanJeff.service.ServiceLayer;
-
 import com.company.Summative1RocioAllanJeff.viewmodel.InvoiceViewModel;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,36 +14,45 @@ import org.springframework.web.bind.annotation.RestController;
 
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
-
+// referenced record-collection activity in class on Oct. 14, 2022
 @RestController
 public class InvoiceController {
 
     @Autowired
     private ServiceLayer serviceLayer;
 
-
+    // create an invoice
     @PostMapping("/invoices")
     @ResponseStatus(HttpStatus.CREATED)
     public InvoiceViewModel addInvoice(@RequestBody InvoiceViewModel invoiceViewModel) {
-        //creates Invoice via the service layer
+        //creates an Invoice via the service layer
         return serviceLayer.saveInvoice(invoiceViewModel);
-
     }
-
-//
-//    @RequestMapping(value = "/invoices", method = RequestMethod.GET)
-//    @ResponseStatus(HttpStatus.OK)
-//    public List<Invoice> getAllInvoices() {
-//        return invoiceRepo.findAll();
-//    }
-//    @GetMapping("/invoices/{invoiceId}")
-//    @ResponseStatus(HttpStatus.OK)
-//    public Optional<Invoice> getInvoiceById(@PathVariable Integer invoiceId) {
-//        return invoiceRepo.findById(invoiceId);
-//    }
+    // get all invoices
+    @RequestMapping(value = "/invoices", method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public List<InvoiceViewModel> getAllInvoices() {
+        return serviceLayer.findAllInvoices();
+    }
+    // get an invoice by id
+    @GetMapping("/invoices/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public InvoiceViewModel getInvoiceById(@PathVariable int id) {
+        return serviceLayer.findInvoiceById(id);
+    }
+    // update an invoice
+    @PutMapping("/invoices")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateInvoice(@RequestBody @Valid InvoiceViewModel invoiceViewModel ) {
+        serviceLayer.updateInvoice(invoiceViewModel);
+    }
+    // delete an invoice
+    @DeleteMapping("/invoices/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteInvoice(@PathVariable int id) {
+        serviceLayer.deleteInvoiceById(id);
+    }
 
 }
