@@ -146,7 +146,7 @@ public class GameControllerTest {
         mockMvc.perform(put("/games")
                         .content(inputJson)
                         .contentType(MediaType.APPLICATION_JSON))
-                        .andExpect(status().isOk());
+                        .andExpect(status().isNoContent());
     }
     @Test
     public void shouldThrowA204WhenDeletingAGame() throws Exception {

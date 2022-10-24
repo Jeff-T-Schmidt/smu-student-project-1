@@ -76,7 +76,7 @@ public class TshirtRepositoryTest {
     public void shouldFindTshirtByLargeSize() {
         List<Tshirt> largeTshirts = repo.findTshirtsBySize("large");
 
-        assertEquals(1, largeTshirts.size());
+        assertEquals(2, largeTshirts.size());
     }
 
     @Test
@@ -97,7 +97,7 @@ public class TshirtRepositoryTest {
     public void shouldFindTshirtByYellowColor() {
         List<Tshirt> yellowTshirts = repo.findTshirtsByColor("yellow");
 
-        assertEquals(1, yellowTshirts.size());
+        assertEquals(2, yellowTshirts.size());
     }
 
     @Test
