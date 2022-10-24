@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
+// reference record-collection activity in class on October 14, 2022
 @RunWith(SpringRunner.class)
 @WebMvcTest(GameController.class)
 public class GameControllerTest {
@@ -137,5 +137,7 @@ public class GameControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json(outputJson));
     }
+
+
 
 }
