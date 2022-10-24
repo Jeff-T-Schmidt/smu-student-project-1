@@ -1,7 +1,7 @@
 openapi: 3.0.1
 info:
   title: Game Store - OpenAPI 3.0
-  description: The API-based database application will manage inventory such as games, console and T-shirts and provide a mechanism by which users can purchase the products.
+  description: The API-based database application will manage inventory such as games, consoles and T-shirts and provide a mechanism by which users can purchase the products.
   version: v0
 servers:
   - url: http://localhost:8080
