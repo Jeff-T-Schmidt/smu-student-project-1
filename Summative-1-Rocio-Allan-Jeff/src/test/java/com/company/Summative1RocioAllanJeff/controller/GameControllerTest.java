@@ -20,8 +20,7 @@ import java.util.Optional;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.doReturn;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -137,7 +136,21 @@ public class GameControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().json(outputJson));
     }
+    @Test
+    public void shouldThrowA204WhenUpdatingAGame() throws Exception {
+        inputGame.setGameId(12);
+        inputGame.setEsrb("Mature");
 
+        String inputJson = mapper.writeValueAsString(inputGame);
 
-
+        mockMvc.perform(put("/games")
+                        .content(inputJson)
+                        .contentType(MediaType.APPLICATION_JSON))
+                        .andExpect(status().isOk());
+    }
+    @Test
+    public void shouldThrowA204WhenDeletingAGame() throws Exception {
+        mockMvc.perform(delete("/games/12"))
+                .andExpect(status().isNoContent());
+    }
 }
