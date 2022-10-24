@@ -47,7 +47,7 @@ public class GameController {
         return gameRepo.findAllGamesByTitle(title);
     }
     @PutMapping("/games")
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateGame(@RequestBody @Valid Game game) {
 
         gameRepo.save(game);
