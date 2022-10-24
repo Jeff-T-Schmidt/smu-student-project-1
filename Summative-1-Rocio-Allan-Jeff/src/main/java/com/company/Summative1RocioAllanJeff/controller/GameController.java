@@ -10,7 +10,7 @@ import org.webjars.NotFoundException;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
-
+// referenced record-collection activity in class on Oct. 14, 2022
 @RestController
 public class GameController {
     @Autowired
@@ -28,8 +28,8 @@ public class GameController {
     @GetMapping("/games/{gameId}")
     @ResponseStatus(HttpStatus.OK)
     public Optional<Game> getGameById(@PathVariable Integer gameId) {
-        if (gameId > gameRepo.count())
-            throw new NotFoundException("Game doesn't exist");
+//        if (gameId > gameRepo.count())
+//            throw new NotFoundException("Game doesn't exist");
         return gameRepo.findById(gameId);
     }
     @GetMapping("/games/esrbs/{esrb}")

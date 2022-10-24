@@ -30,8 +30,8 @@ public class ConsoleController {
     @GetMapping("/{consoleId}")
     @ResponseStatus(HttpStatus.OK)
     public Optional<Console> getConsoleById(@PathVariable Integer consoleId) {
-        if (consoleId > consoleRepository.count())
-            throw new NotFoundException("Console doesn't exist");
+//        if (consoleId > consoleRepository.count())
+//            throw new NotFoundException("Console doesn't exist");
         return consoleRepository.findById(consoleId);
     }
 
